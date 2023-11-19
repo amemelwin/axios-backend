@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fullstack.shop.repository.ProductRepository">
+	<resultMap id="productResultMap" type="com.fullstack.shop.dto.ProductResponseDto" >
+		<id property="productId" column="product_id"></id>
+		<result property="productName" column="product_name"></result>
+		<result property="price" column="price"></result>
+		<result property="stock" column="stock"></result>
+		<result property="createdAt" column="created_at"></result>
+		<result property="updatedAt" column="updated_at"></result>
+	</resultMap>
+	<insert id="createProduct">
+		INSERT INTO products
+		(product_name,price,stock)
+		VALUES (#{productName},#{price},#{stock});
+	</insert>
+	
+	<select id="getCreatedProduct" resultMap="productResultMap">
+		SELECT * FROM products 
+		WHERE product_name=#{productName} AND price=#{price} AND stock=#{stock}
+		ORDER BY product_id DESC LIMIT 1;
+	</select>
+	
+	<select id="getProductById" resultMap="productResultMap">
+		SELECT * FROM products WHERE product_id = #{arkar}
+	</select>
+	<!-- Return created product  -->
+<!-- 	<select id="getCreatedProduct" resultMap="productResultMap">
+		SELECT * FROM products 
+		ORDER BY product_id DESC LIMIT 1;
+	</select> -->
+	
+	
+	<select id="getAllProducts" resultMap="productResultMap">
+		SELECT * FROM products;
+	</select>
+ </mapper>
