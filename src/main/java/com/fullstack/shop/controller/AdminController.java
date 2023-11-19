@@ -2,6 +2,7 @@ package com.fullstack.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,9 @@ import com.fullstack.shop.service.OrderService;
 import com.fullstack.shop.service.ProductService;
 
 @RestController
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        })
 public class AdminController {
 	
 	@Autowired
