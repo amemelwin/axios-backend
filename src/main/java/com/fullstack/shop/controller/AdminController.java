@@ -16,9 +16,6 @@ import com.fullstack.shop.service.OrderService;
 import com.fullstack.shop.service.ProductService;
 
 @RestController
-@CrossOrigin(origins = {
-        "http://localhost:5173",
-        })
 public class AdminController {
 	
 	@Autowired

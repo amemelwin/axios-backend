@@ -9,6 +9,7 @@ public class AuthorizeRequest {
 			AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request) {
 			request.requestMatchers(HttpMethod.POST, "/api/v1/login", "/api/v1/register").permitAll()
 				.requestMatchers("/api/v1/admin/**").hasAnyAuthority("1")
+				.requestMatchers("/pub/**").permitAll()
 				.requestMatchers("/api/v1/user/**").hasAnyAuthority("2");
 	}
 }
