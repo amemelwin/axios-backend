@@ -13,5 +13,6 @@ public interface ProductRepository {
 	public void createProduct(ProductRequestDto productRequestDto);
 	public ProductResponseDto getCreatedProduct(ProductRequestDto productRequestDto);
 	public ArrayList<ProductResponseDto> getAllProducts();
-	public ProductResponseDto getProductById(@Param("arkar") int productId);
+	public ProductResponseDto getProductById(@Param("productId") int productId);
+	public void deleteProductById(@Param("productId") int productId);
 }

@@ -14,6 +14,7 @@ import com.fullstack.shop.dto.LoginResponseDto;
 import com.fullstack.shop.dto.UserResponseDto;
 import com.fullstack.shop.entity.User;
 import com.fullstack.shop.response.ApiErrorResponse;
+import com.fullstack.shop.response.ApiResponse;
 
 
 
@@ -36,10 +37,9 @@ public class LoginService {
 
 		Map<String, Object> errors = loginDto.validate();
 		if (errors.size() > 0) {
-			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED,"Error").response();
+			return new ApiErrorResponse(errors, HttpStatus.UNAUTHORIZED,"Login Unsuccessful").response();
 		}
 		User user = authService.findUserByEmail(loginDto.getEmail());
-		System.out.println("EMAIL : " + loginDto.getEmail());
 		
 		if (user != null) {
 			if (passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
@@ -50,7 +50,7 @@ public class LoginService {
 				loginResponseDto.setUser((UserResponseDto) user.toDto());
 				return ResponseEntity.ok(loginResponseDto);
 			}else if(loginDto.getEmail() != user.email && loginDto.getPassword()!=user.password) {
-				return ResponseEntity.ok("error");
+				return new ApiResponse(HttpStatus.UNAUTHORIZED,"User email or password does not match").response();
 			}
 		} else {
 			return ResponseEntity.ok("error");

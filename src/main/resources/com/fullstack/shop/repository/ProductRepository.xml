@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="getProductById" resultMap="productResultMap">
-		SELECT * FROM products WHERE product_id = #{arkar}
+		SELECT * FROM products WHERE product_id = #{productId}
 	</select>
 	<!-- Return created product  -->
 <!-- 	<select id="getCreatedProduct" resultMap="productResultMap">
@@ -34,4 +34,10 @@
 	<select id="getAllProducts" resultMap="productResultMap">
 		SELECT * FROM products;
 	</select>
+	
+	<delete id="deleteProductById">
+		DELETE 
+		FROM products
+		WHERE product_id = #{productId}
+	</delete>
  </mapper>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fullstack.shop.dto.LoginRequestDto;
 import com.fullstack.shop.dto.RegisterRequestDto;
+import com.fullstack.shop.dto.UserResponseDto;
 import com.fullstack.shop.entity.User;
 import com.fullstack.shop.repository.AuthRepository;
 import com.fullstack.shop.response.ApiErrorResponse;
@@ -27,6 +28,9 @@ public class AuthService {
 
 	public ResponseEntity<Object> getUserByEmail(LoginRequestDto loginDto) {
 		Map<String, Object> errors = loginDto.validate();	
+		if(errors.size()>0) {
+			return new ApiErrorResponse(HttpStatus.CONFLICT, "Failed", errors).response();
+		}
 		
 		User user = authRepository.getUserByEmail(loginDto);
 		return ResponseEntity.ok(user);
@@ -51,7 +55,8 @@ public class AuthService {
 			// create user	
 			try {
 				authRepository.createUser(registerReqDto.email.toLowerCase(),registerReqDto.userName,passwordEncoder.encode(registerReqDto.password));
-				return new ApiResponse(HttpStatus.OK, "User is successfully registered",user).response();
+				User registeredUser = authRepository.getRecentlyRegisteredUser(); 
+				return new ApiResponse(HttpStatus.OK, "User is successfully registered",registeredUser).response();
 
 			}catch(Exception e) {
 				return new ApiResponse(HttpStatus.CONFLICT, "User Can not be created").response();

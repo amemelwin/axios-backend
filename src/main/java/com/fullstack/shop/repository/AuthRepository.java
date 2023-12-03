@@ -17,6 +17,7 @@ public interface AuthRepository {
 //	public User findByEmail(String mail);
 	public void createUser(@Param("email") String email,@Param("userName") String userName, @Param("password") String password );
 	public User getUserById(@Param("userId") long userId);
+	public User getRecentlyRegisteredUser();
 
 	
 }

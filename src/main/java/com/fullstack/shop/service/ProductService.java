@@ -45,5 +45,19 @@ public class ProductService {
 		}
 	}
 	
+	public ResponseEntity<Object> deleteProductById(int productId){
+		try {
+			ProductResponseDto product = productRepository.getProductById(productId);
+			if(product == null) {
+				return new ApiResponse(HttpStatus.CONFLICT,"product"+productId+" can not delete").response();
+			}
+			productRepository.deleteProductById(productId);
+			return new ApiResponse(HttpStatus.OK,"product"+productId+" delete successfully").response();
+			
+		}catch(Exception e) {
+			return new ApiResponse(HttpStatus.CONFLICT,"product"+productId+" can not delete").response();
+		}
+	}
+	
 
 }
